@@ -1,0 +1,88 @@
+
+enum {
+  PT_STR,PT_CMD,PT_WORD,PT_SEP,PT_PAREN_ERR,PT_ERR
+};
+
+struct mtclParsePart {
+  char *str;
+  const char *start,*end,*lineStart;
+  int line,col;  
+};
+
+struct mtclParseWord {
+  int partsNum;
+  struct mtclParsePart *parts;
+};
+
+if(fsm->mStart<fsm->mEnd) { //APPEND_WORD
+    char *x=(char*)malloc(fsm->mEnd-fsm->mStart+1);
+    sprintf(x,"%.*s",fsm->mEnd-fsm->mStart,fsm->mStart);
+    bool r=mtclParseStrCallback(extraData,fsm->mStart,fsm->mEnd,x);
+    free(x);
+    
+    if(!r) {
+      fbreak;
+    }
+  }
+  
+    if(fsm->mStart<fsm->mEnd) { //APPEND_WORD
+    char *x=(char*)malloc(fsm->mEnd-fsm->mStart+1);
+    sprintf(x,"%.*s",fsm->mEnd-fsm->mStart,fsm->mStart);
+    bool r=mtclParseStrCallback(extraData,fsm->mStart,fsm->mEnd,x);
+    free(x);
+    
+    if(!r) {
+      fbreak;
+    }
+  }
+  
+    {
+    char *x=(char*)malloc(6+b-a+1);
+    sprintf(x,"set {%.*s}",b-a,a);
+    bool r=mtclParseCmdCallback(extraData,a,b,x);
+    free(x);
+    
+    if(!r) { //APPEND_WORD_CMD
+      fsm->runErr=true;
+      fbreak;
+    }
+  }
+  
+    if(fsm->mStart<fsm->mEnd) { //APPEND_WORD
+    char *x=(char*)malloc(fsm->mEnd-fsm->mStart+1);
+    sprintf(x,"%.*s",fsm->mEnd-fsm->mStart,fsm->mStart);
+    bool r=mtclParseStrCallback(extraData,fsm->mStart,fsm->mEnd,x);
+    free(x);
+    
+    if(!r) {
+      fbreak;
+    }
+  }
+    {
+    char *x=(char*)malloc(b-a+1);
+    sprintf(x,"%.*s",b-a,a);
+    bool r=mtclParseCmdCallback(extraData,a,b,x);
+    free(x);
+    
+    if(!r) { //APPEND_WORD_CMD
+      fsm->runErr=true;
+      fbreak;
+    }
+  }
+  
+      char *x=(char*)malloc(b-a+1);
+    sprintf(x,"%.*s",b-a,a);
+    bool r=mtclParseStrCallback(extraData,a,b,x);
+    free(x);
+    
+    if(!r) {
+      fbreak;
+    }
+    
+    , struct mtclParseWord *word
+    
+    
+    
+  DEBUG_VAL("===========c",fsm->mStart,fsm->mEnd);
+  
+  //mtclParseStrCallback(extraData,fsm->mStart,fsm->mEnd,x);

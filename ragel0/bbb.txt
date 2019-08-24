@@ -1,0 +1,16 @@
+if < $i 5 {
+} elif == $i 8 {
+} else {
+}
+
+if eq $s "str" {
+} else {
+}
+
+
+name "joe"
+screen_size 640 480
+
+
+
+[0 1 2] dup car cdr
