@@ -1,0 +1,145 @@
+
+=======================ini
+
+main = ws (heading|record) (eol (heading|record))*
+heading = '[' ws idn ws ']'
+record = ws idn ws '=' ws val
+idn = [_a-zA-Z][_a-zA-Z0-9]*
+eol = '\r'? '\n'
+
+=======================expr
+
+num = [1-9][0-9]* | [0-9]
+val = ([+-] ws)*  num | [(] ws exp ws [)]
+exp = val (ws [+-*/] ws val)*
+main = ws exp ws
+
+main:
+	call ws
+	call exp
+	call ws
+
+=======================csv
+
+record1:
+    split record2
+    call comma
+record0:
+    call field
+    jmp record1
+record2:
+    ret
+    
+record0:
+    jmp record2
+record1:
+    split record3
+    call comma
+record2:
+    call field
+    jmp record1
+record3:
+    ret
+    
+    
+
+record0:
+    call field
+record1:
+    split record2
+    call comma
+    call field
+    jmp record1
+record2:
+    ret
+    
+========
+
+
+main = record (eol record colcheck)* eol?
+record = field (comma field)*
+field = qstr | sstr
+qstr = ["] ([^"]|["]["])* ["]
+sstr = [^,\n\r\n]*
+
+main1:
+    call eol
+main0:
+    call record
+    call colcheck
+    rsplit main1
+main2:
+    split main3
+    call eol
+main3:
+    jmp end
+    
+main0:
+    call record
+main1:
+    split main2
+    call eol
+    call record
+    call colcheck
+    jmp main1
+main2:
+    split main3
+    call eol
+main3:
+    jmp end
+    
+record1:
+    call comma
+record0:
+    call field
+    rsplit record1
+record2:
+    ret
+
+field0:
+    split field1
+    call qstr
+    jmp field2
+field1:
+    call sstr
+field2:
+    ret
+
+qstr0:
+    chr '"'
+qstr1:
+    split qstr2
+    nchar "\""
+    jmp qstr1
+qstr2:
+    split qstr3
+    char "\""
+    char "\""
+    jmp qstr1
+qstr3:
+    chr '"'
+    ret
+
+sstr0:
+    split sstr1
+    nchr ",\r\n"
+    jmp sstr0
+sstr1:
+    ret
+
+end:
+
+===============
+
+
+
+[^\s]+[\s]*[=][\s]*[^\s]+ eol
+[^\s]+
+
+http://tparser.org/
+
+=======
+consume 1
+replace str
+callback
+take
