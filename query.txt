@@ -1,0 +1,29 @@
+
+select (list y w) from (html (body (p (@ (id ,x)) ,y) ... (span (@ (id ,z)) ,w) ...)) where (= x z)
+
+
+(html (body (p (@ (id "abc")) ,x) ... ))
+
+for x in html/body
+where x/p/@id = "abc"
+return x/p
+
+select (html (body (p (@ (id ,x)) ,y)))
+          (html (body (span (@ (id ,z)) ,w)))
+where (= x z)
+
+(match input
+    [])
+
+select p/@ProductID,p.child/ProductName,c/CategoryName
+from root/products as p, root/categories as c
+where p.CategoryID=c.ID
+
+select (categories (category (@ (id ,cid)) (CategoryName ,cname)))
+          (products (product (@ (ProductID ,pid) (CategoryID ,pcid)) (ProductName ,pname)))
+where (= cpid cid)
+
+for p in products
+for c in categories
+where p/@CategoryID=c/@ID
+return "p/@ProductID p/ProductName c/CategoryName"
