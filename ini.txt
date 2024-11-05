@@ -1,0 +1,5 @@
+main = ws (heading|record) (eol (heading|record))*
+heading = '[' ws idn ws ']'
+record = ws idn ws '=' ws val
+idn = [_a-zA-Z][_a-zA-Z0-9]*
+eol = '\r'? '\n'
